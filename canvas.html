@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Testing Brush</title>
+	<!-- paper.js -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.11/paper-full.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.11/paper-full.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.11/paper-core.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.11/paper-core.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.11/paper-full.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="canvas.css">
+	<script type="text/paperscript" canvas="myCanvas">
+	tool.minDistance = 10;
+	tool.maxDistance = 45;
+
+	var path;
+
+	//to draw new path
+	function onMouseDown(event) {
+		path = new Path();
+		//path stroke color
+		path.fillColor = new Color({ hue: Math.random() * 360, saturation: 1, brightness: 1 });
+
+		path.opacity = 0.5;
+		path.add(event.point);
+	}
+
+	function onMouseDrag(event) {
+		var step = event.delta / 2;
+		step.angle += 90;
+		
+		var top = event.middlePoint + step;
+		var bottom = event.middlePoint - step;
+		
+		path.add(top);
+		path.insert(0, bottom);
+		path.smooth();
+	}
+
+	function onMouseUp(event) {
+		path.add(event.point);
+		path.closed = true;
+		path.smooth();
+	}
+
+	// Create a circle shaped path at the center of the view,
+	// with a radius of 70:
+	var path2 = new Path.Circle({
+		center: view.center,
+		//radius: 10,
+		fillColor: 'red'
+	});
+
+
+	var destination = Point.random() * view.size;
+
+	function onFrame(event) {
+		// Each frame, change the fill color of the path slightly by
+		// adding 1 to its hue:
+		path2.fillColor.hue += 1;
+
+		var vector = destination - path2.position;
+
+		path2.position += vector / 30;
+
+		path2.content = Math.round(vector.length);
+		
+		// If the distance between the path and the destination is less
+		// than 5, we define a new random point in the view to move the
+		// path to:
+		if (vector.length < 5) {
+			destination = Point.random() * view.size;
+		}
+
+	}
+</script>
+</head>
+<body>
+
+	<div id="enter">
+		<h3 id="enter_text">E N T E R</h3>
+	</div>
+
+	<div id="clear_canvas">
+		<h3 id="enter_text">C L E A R</h3>
+	</div>
+
+
+<script type="text/javascript">
+	var clr = document.querySelector("#clear_canvas");
+	clr.addEventListener("click", function() {
+  		window.location.reload();
+	});
+
+	var ent = document.querySelector("#enter");
+	ent.addEventListener("click", function() {
+		location.href = "home.html";
+	});
+
+</script>
+
+	<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
