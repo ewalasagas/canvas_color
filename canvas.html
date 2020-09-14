@@ -46,6 +46,7 @@
 		path.smooth();
 	}
 
+
 	// Create a circle shaped path at the center of the view,
 	// with a radius of 70:
 	var path2 = new Path.Circle({
@@ -81,7 +82,9 @@
 <body>
 
 	<div id="enter">
-		<h3 id="enter_text">E N T E R</h3>
+		<a href="#" style="text-decoration: none;" onclick="prepDownload(this, document.getElementById('myCanvas'), 'my_image.png')">
+			<h3 id="enter_text" >S A V E</h3>
+		</a>
 	</div>
 
 	<div id="clear_canvas">
@@ -95,13 +98,13 @@
   		window.location.reload();
 	});
 
-	var ent = document.querySelector("#enter");
-	ent.addEventListener("click", function() {
-		location.href = "home.html";
-	});
+	function prepDownload(a, canvas, name) {
+    	a.download = name
+    	a.href = canvas.toDataURL()
+	}
 
 </script>
-
 	<canvas id="myCanvas" resize></canvas>
+<!-- 	<img id="canvasImg" alt="Right click to save me!"> -->
 </body>
 </html>
