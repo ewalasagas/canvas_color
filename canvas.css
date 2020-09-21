@@ -38,13 +38,31 @@ canvas[resize] {
 	text-align: center;	
 }
 
+/*#clear_canvas:hover {
+    opacity: 1; 
+}*/
+
 #enter_text {
 	font-family: "Lucida Console", Courier, monospace;
-	color: white;
+	color: black;
+    position: absolute; 
+    top: 200%; 
+    left: 50%; 
+    margin-right: -50%; 
+    transform: translate(-50%, -100%);
+    opacity: 0.5;
+    font-size: 2vw;
+    padding: 0.5vw;
+    background-color: grey;
 }
 
+#enter_text:hover {
+    opacity: 1; 
+}
+
+/*FOR HOVER OVER BOX EFFECT - REMOVING FOR MOBILE VIEW FRIENDLY*/
 /* FOR BOX HOVER ONLY */
-@keyframes bg {
+/*@keyframes bg {
     0% {
       background-size:    0 3px,
                             3px 0,
@@ -76,8 +94,9 @@ canvas[resize] {
                             3px 100%;
     }
 }
-
-div {
+*/
+/*FOR HOVER OVER BOX EFFECT - REMOVING FOR MOBILE VIEW FRIENDLY*/
+/*div {
     width: 25%;
     margin: 2rem auto;
     padding: 2em;
@@ -97,11 +116,11 @@ div {
                             0 100%;
     animation: bg 1.25s cubic-bezier(0.19, 1, 0.22, 1) 1;
     animation-play-state: paused;
-}
+}*/
 
-div:hover {
+/*div:hover {
     animation-play-state: running;
-}
+}*/
 
 /* END OF BOX HOVER 
 	SOURCE: ;
